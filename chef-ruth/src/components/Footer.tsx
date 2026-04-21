@@ -1,15 +1,8 @@
-const horairesFooter = [
-  { jours: "Lun – Jeu", horaire: "12:00–15:00  ·  18:30–21:00" },
-  { jours: "Vendredi", horaire: "12:00–15:00" },
-  { jours: "Samedi", horaire: "Fermé" },
-  { jours: "Dimanche", horaire: "12:00–16:00  ·  18:30–21:00" },
-];
+import { RESTAURANT_INFO } from "@/lib/config";
+import { formatBusinessHoursForFooter } from "@/lib/formats";
+import { NAV_LINKS } from "@/lib/navigation";
 
-const navLinks = [
-  { label: "Accueil", href: "#accueil" },
-  { label: "Notre Menu", href: "#menu" },
-  { label: "Réservation", href: "#reservation" },
-];
+const horairesFooter = formatBusinessHoursForFooter();
 
 export default function Footer() {
   return (
@@ -37,17 +30,17 @@ export default function Footer() {
               Nous trouver
             </h4>
             <div className="space-y-2 text-sm text-white/50 mb-6">
-              <p>138 Rue de la Pompe</p>
-              <p>75016 Paris</p>
+              <p>{RESTAURANT_INFO.address.street}</p>
+              <p>{RESTAURANT_INFO.address.postalCode} {RESTAURANT_INFO.address.city}</p>
               <a
-                href="tel:0145624540"
+                href={`tel:${RESTAURANT_INFO.phone.replace(/\s/g, "")}`}
                 className="block text-white/60 hover:text-white transition-colors mt-3"
               >
-                01 45 62 45 40
+                {RESTAURANT_INFO.phone}
               </a>
             </div>
             <div className="flex flex-col gap-2">
-              {navLinks.map(({ label, href }) => (
+              {NAV_LINKS.map(({ label, href }) => (
                 <a
                   key={label}
                   href={href}

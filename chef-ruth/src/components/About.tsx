@@ -1,14 +1,8 @@
 import { MapPin, Phone, Clock } from "lucide-react";
+import { RESTAURANT_INFO } from "@/lib/config";
+import { formatBusinessHoursForDisplay } from "@/lib/formats";
 
-const horaires = [
-  { jour: "Lundi", midi: "12:00–15:00", soir: "18:30–21:00" },
-  { jour: "Mardi", midi: "12:00–15:00", soir: "18:30–21:00" },
-  { jour: "Mercredi", midi: "12:00–15:00", soir: "18:30–21:00" },
-  { jour: "Jeudi", midi: "12:00–15:00", soir: "18:30–21:00" },
-  { jour: "Vendredi", midi: "12:00–15:00", soir: null },
-  { jour: "Samedi", midi: null, soir: null },
-  { jour: "Dimanche", midi: "12:00–16:00", soir: "18:30–21:00" },
-];
+const horaires = formatBusinessHoursForDisplay();
 
 export default function About() {
   return (
@@ -47,18 +41,20 @@ export default function About() {
                 <MapPin size={17} className="text-[#C4904A] mt-0.5 shrink-0" />
                 <div>
                   <p className="font-medium text-[#1A1714]">
-                    138 Rue de la Pompe
+                    {RESTAURANT_INFO.address.street}
                   </p>
-                  <p className="text-sm text-[#1A1714]/50">75016 Paris</p>
+                  <p className="text-sm text-[#1A1714]/50">
+                    {RESTAURANT_INFO.address.postalCode} {RESTAURANT_INFO.address.city}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={17} className="text-[#C4904A] shrink-0" />
                 <a
-                  href="tel:0145624540"
+                  href={`tel:${RESTAURANT_INFO.phone.replace(/\s/g, "")}`}
                   className="font-medium text-[#1A1714] hover:text-[#C4904A] transition-colors"
                 >
-                  01 45 62 45 40
+                  {RESTAURANT_INFO.phone}
                 </a>
               </div>
             </address>

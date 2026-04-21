@@ -1,12 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-const navLinks = [
-  { label: "Accueil", href: "#accueil" },
-  { label: "Menu", href: "#menu" },
-  { label: "Réservation", href: "#reservation" },
-];
+import { NAV_LINKS } from "@/lib/navigation";
+import { THEME } from "@/lib/theme";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -41,7 +37,7 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map(({ label, href }) => (
+          {NAV_LINKS.map(({ label, href }) => (
             <a
               key={label}
               href={href}
@@ -76,7 +72,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 py-6">
           <div className="flex flex-col items-center gap-5">
-            {navLinks.map(({ label, href }) => (
+            {NAV_LINKS.map(({ label, href }) => (
               <a
                 key={label}
                 href={href}

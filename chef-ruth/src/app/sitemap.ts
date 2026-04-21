@@ -1,11 +1,12 @@
 import { MetadataRoute } from "next";
+import { RESTAURANT_INFO } from "@/lib/config";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://chefruth.fr";
+export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: SITE_URL,
+      url: RESTAURANT_INFO.siteUrl,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
