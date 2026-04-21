@@ -1,4 +1,5 @@
 import { Phone, MapPin } from "lucide-react";
+import { RESTAURANT_INFO, BUSINESS_HOURS } from "@/lib/config";
 
 export default function Reservation() {
   return (
@@ -27,20 +28,20 @@ export default function Reservation() {
             {/* Boutons */}
             <div className="flex flex-col gap-3">
               <a
-                href="tel:0145624540"
+                href={`tel:${RESTAURANT_INFO.phone.replace(/\s/g, "")}`}
                 className="flex items-center justify-center gap-3 bg-[#1A1714] text-white py-4 text-xs font-medium tracking-widest uppercase hover:bg-[#2A2724] transition-colors"
               >
                 <Phone size={15} />
-                01 45 62 45 40
+                {RESTAURANT_INFO.phone}
               </a>
               <a
-                href="https://www.google.com/maps/search/?api=1&query=138+Rue+de+la+Pompe+75016+Paris"
+                href={RESTAURANT_INFO.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 border border-[#1A1714]/15 text-[#1A1714] py-4 text-xs font-medium tracking-widest uppercase hover:bg-[#1A1714]/5 transition-colors"
               >
                 <MapPin size={15} />
-                138 Rue de la Pompe, Paris 16e
+                {RESTAURANT_INFO.address.street}, {RESTAURANT_INFO.address.city} {RESTAURANT_INFO.address.postalCode[0]}6e
               </a>
             </div>
 
@@ -54,14 +55,21 @@ export default function Reservation() {
 
           {/* Infos horaires rapides */}
           <div className="mt-6 grid grid-cols-2 gap-3 text-center text-xs text-[#1A1714]/60">
-            <div className="bg-white/60 py-3 px-4">
-              <p className="font-medium text-[#1A1714] mb-1">Déjeuner</p>
-              <p>12:00 – 15:00</p>
-            </div>
-            <div className="bg-white/60 py-3 px-4">
-              <p className="font-medium text-[#1A1714] mb-1">Dîner</p>
-              <p>18:30 – 21:00</p>
-            </div>
+            {(() => {
+              const sun = BUSINESS_HOURS.find((h) => h.days.includes("Sunday"));
+              return (
+                <>
+                  <div className="bg-white/60 py-3 px-4">
+                    <p className="font-medium text-[#1A1714] mb-1">Déjeuner</p>
+                    <p>{sun?.lunch ? `${sun.lunch.open} – ${sun.lunch.close}` : "Fermé"}</p>
+                  </div>
+                  <div className="bg-white/60 py-3 px-4">
+                    <p className="font-medium text-[#1A1714] mb-1">Dîner</p>
+                    <p>{sun?.dinner ? `${sun.dinner.open} – ${sun.dinner.close}` : "Fermé"}</p>
+                  </div>
+                </>
+              );
+            })()}
           </div>
         </div>
       </div>

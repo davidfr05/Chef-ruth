@@ -1,62 +1,27 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://chefruth.fr";
+import { RESTAURANT_INFO } from "@/lib/config";
+import { formatBusinessHoursForOpeningHours } from "@/lib/formats";
 
 export default function JsonLd() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Restaurant",
-    name: "Chef Ruth",
+    name: RESTAURANT_INFO.name,
     description:
       "Traiteur-sandwicherie au cœur du 16e arrondissement de Paris. Cuisine fraîche, sandwichs artisanaux, plateaux traiteur pour événements professionnels et particuliers.",
-    url: SITE_URL,
-    telephone: "+33145624540",
-    image: `${SITE_URL}/og-image.png`,
+    url: RESTAURANT_INFO.siteUrl,
+    telephone: RESTAURANT_INFO.phoneRaw,
+    image: `${RESTAURANT_INFO.siteUrl}/og-image.png`,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "138 Rue de la Pompe",
-      addressLocality: "Paris",
-      postalCode: "75016",
-      addressCountry: "FR",
+      streetAddress: RESTAURANT_INFO.address.street,
+      addressLocality: RESTAURANT_INFO.address.city,
+      postalCode: RESTAURANT_INFO.address.postalCode,
+      addressCountry: RESTAURANT_INFO.address.country,
     },
     servesCuisine: ["Sandwicherie", "Traiteur", "Cuisine française"],
     priceRange: "€€",
-    hasMenu: `${SITE_URL}#menu`,
-    openingHoursSpecification: [
-      // Lundi–Jeudi midi
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday"],
-        opens: "12:00",
-        closes: "15:00",
-      },
-      // Lundi–Jeudi soir
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday"],
-        opens: "18:30",
-        closes: "21:00",
-      },
-      // Vendredi midi uniquement
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Friday"],
-        opens: "12:00",
-        closes: "15:00",
-      },
-      // Dimanche midi
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Sunday"],
-        opens: "12:00",
-        closes: "16:00",
-      },
-      // Dimanche soir
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Sunday"],
-        opens: "18:30",
-        closes: "21:00",
-      },
-    ],
+    hasMenu: `${RESTAURANT_INFO.siteUrl}#menu`,
+    openingHoursSpecification: formatBusinessHoursForOpeningHours(),
     currenciesAccepted: "EUR",
     paymentAccepted: "Cash, Credit Card",
     amenityFeature: [

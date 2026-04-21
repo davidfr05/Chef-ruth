@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Playfair_Display } from "next/font/google";
 import "./globals.css";
-
-// Mettez à jour cette variable avec votre domaine de production
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://chefruth.fr";
+import { RESTAURANT_INFO } from "@/lib/config";
+import { SEO_KEYWORDS, SEO_DESCRIPTION, SEO_OG_DESCRIPTION } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,36 +17,24 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(RESTAURANT_INFO.siteUrl),
 
   title: {
     default: "Chef Ruth | Traiteur & Sandwicherie — Paris 16e",
     template: "%s | Chef Ruth",
   },
-  description:
-    "Chef Ruth, votre traiteur-sandwicherie au 138 Rue de la Pompe, 75016 Paris. Cuisine fraîche et généreuse, plateaux traiteur pour événements, déjeuner sur place ou à emporter.",
-  keywords: [
-    "traiteur Paris 16",
-    "sandwicherie Paris 16",
-    "Chef Ruth",
-    "traiteur 75016",
-    "plateau apéritif Paris",
-    "livraison repas Paris",
-    "buffet événement Paris",
-    "sandwich Paris 16e",
-    "traiteur Rue de la Pompe",
-  ],
-  authors: [{ name: "Chef Ruth" }],
-  creator: "Chef Ruth",
+  description: SEO_DESCRIPTION,
+  keywords: SEO_KEYWORDS,
+  authors: [{ name: RESTAURANT_INFO.name }],
+  creator: RESTAURANT_INFO.name,
 
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: SITE_URL,
-    siteName: "Chef Ruth",
+    url: RESTAURANT_INFO.siteUrl,
+    siteName: RESTAURANT_INFO.name,
     title: "Chef Ruth | Traiteur & Sandwicherie — Paris 16e",
-    description:
-      "Cuisine fraîche et généreuse au cœur du 16e. Sandwichs artisanaux, salades, plateaux traiteur pour vos événements.",
+    description: SEO_OG_DESCRIPTION,
     images: [
       {
         url: "/og-image.png",
@@ -61,8 +48,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Chef Ruth | Traiteur & Sandwicherie — Paris 16e",
-    description:
-      "Cuisine fraîche et généreuse au cœur du 16e. Sandwichs artisanaux, salades, plateaux traiteur pour vos événements.",
+    description: SEO_OG_DESCRIPTION,
     images: ["/og-image.png"],
   },
 
@@ -79,7 +65,7 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: SITE_URL,
+    canonical: RESTAURANT_INFO.siteUrl,
   },
 };
 
